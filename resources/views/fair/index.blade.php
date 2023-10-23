@@ -88,12 +88,17 @@ $fairStatus = Fair::$statusOptions;
                                         </td>
                                         <td></td>
                                         <td>
-                                            <a href="{{ route('fair.create')}}" class="btn btn-primary mb-2 mb-sm-0"
+                                            <a href="" class="btn btn-primary mb-2 mb-sm-0"
                                                data-toggle="modal" data-target="#myModal_{{$fair->id}}">
                                                 <i class="fa fa-edit "></i>
                                             </a>
 
-                                            <div class="modal fade" id="myModal_{{$fair->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal fade"
+                                                 id="myModal_{{$fair->id}}"
+                                                 tabindex="-1"
+                                                 role="dialog"
+                                                 aria-labelledby="myModalLabel"
+                                                 aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         @include('fair/update')
@@ -102,7 +107,26 @@ $fairStatus = Fair::$statusOptions;
                                             </div>
                                         </td>
                                         <td>
+                                            <a href="" class="btn btn-danger mb-2 mb-sm-0"
+                                               data-toggle="modal" data-target="#myModal_delete_{{$fair->id}}">
+                                                <i class="fa fa-trash "></i>
+                                            </a>
 
+                                            <div class="modal fade"
+                                                 id="myModal_delete_{{$fair->id}}"
+                                                 tabindex="-1"
+                                                 role="dialog"
+                                                 aria-labelledby="myModalLabel"
+                                                 aria-hidden="true"
+                                                 style="margin-top: 100px"
+                                            >
+
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        @include('fair/delete')
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

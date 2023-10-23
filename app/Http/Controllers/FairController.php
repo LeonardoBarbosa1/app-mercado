@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFairRequest;
 use App\Http\Requests\UpdateFairRequest;
 use App\Models\Fair;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FairController extends Controller
 {
@@ -29,14 +30,6 @@ class FairController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreFairRequest $request)
@@ -57,31 +50,11 @@ class FairController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Fair $fair)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Fair $fair)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateFairRequest $request, Fair $fair)
     {
-        $user = Auth::user();
-
-        $model = Fair::where('user_id', $user->id)
-            ->where('id', $fair->id)
-            ->first();
+        $model = $this->findModel($fair);
 
         if ($model) {
             $fair->update([
@@ -104,6 +77,35 @@ class FairController extends Controller
      */
     public function destroy(Fair $fair)
     {
-        //
+        $model = $this->findModel($fair);
+
+        DB::beginTransaction();
+
+        try {
+            if ($model->delete()) {
+                DB::commit();
+                return redirect()->route('fair.index')->with('success', 'Feira excluída com sucesso');
+            } else {
+                DB::rollBack();
+                return redirect()->route('fair.index')->with('error', 'Erro ao excluir');
+            }
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->route('fair.index')->with('error', $e->getMessage());
+        }
+
+    }
+
+    public function findModel($fair)
+    {
+        $user = Auth::user();
+
+        $model = Fair::where('user_id', $user->id)
+            ->where('id', $fair->id)
+            ->first();
+
+        if($model){
+            return $model;
+        }
     }
 }
