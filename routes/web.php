@@ -36,6 +36,13 @@ Route::post('/update-password', [App\Http\Controllers\ProfileController::class, 
     ->name('update-password');
 
 Route::resource('fair',  App\Http\Controllers\FairController::class);
+Route::get('fair/{id}/products', [App\Http\Controllers\FairController::class, 'products'])
+    ->name('products');
+
+Route::get('fair/product-create', [App\Http\Controllers\FairController::class, 'createProducts'])
+    ->name('product-create');
+
+Route::resource('product',  App\Http\Controllers\ProductsController::class);
 
 Route::fallback(function(){
     return redirect('fair');

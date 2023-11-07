@@ -15,6 +15,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- CSS -->
+    <link href="/resources/css/app.css">
 </head>
 <body>
     <div id="app">
@@ -76,5 +79,12 @@
             @yield('content')
         </main>
     </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/4.5.1/jquery.bootstrap-touchspin.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/4.5.1/jquery.bootstrap-touchspin.min.css">
+
 </body>
 </html>

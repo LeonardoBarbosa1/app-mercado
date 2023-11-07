@@ -63,6 +63,18 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+    phpmyadmin:
+        depends_on:
+            - mysql
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - '8080:80'
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+        networks:
+            - sail
+
 networks:
     sail:
         driver: bridge
@@ -71,3 +83,4 @@ volumes:
         driver: local
     sail-redis:
         driver: local
+

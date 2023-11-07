@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFairRequest;
 use App\Http\Requests\UpdateFairRequest;
 use App\Models\Fair;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -93,7 +94,31 @@ class FairController extends Controller
             DB::rollBack();
             return redirect()->route('fair.index')->with('error', $e->getMessage());
         }
+    }
 
+    public function products($id)
+    {
+        $user = Auth::user();
+
+        $model = Fair::where('user_id', $user->id)
+            ->where('id', $id)
+            ->first();
+
+        $fair = $model;
+
+        $products = Product::where('fair_id', $model->id)->orderBy('created_at', 'desc')->get();
+
+        session(['id' => $id]);
+
+        $total = $products->sum(function ($product) {
+            return $product->quantity * $product->price;
+        });
+
+        return view('fair.products', [
+            'products' => $products,
+            'fair' => $fair,
+            'total' => $total,
+        ]);
     }
 
     public function findModel($fair)

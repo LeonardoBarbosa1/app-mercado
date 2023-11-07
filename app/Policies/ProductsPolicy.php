@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Fair;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class FairPolicy
+class ProductsPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class FairPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Fair $fair): bool
+    public function view(User $user, Product $products): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class FairPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Fair $fair): bool
+    public function update(User $user, Product $products): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class FairPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Fair $fair): bool
+    public function delete(User $user, Product $products): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class FairPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Fair $fair): bool
+    public function restore(User $user, Product $products): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class FairPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Fair $fair): bool
+    public function forceDelete(User $user, Product $products): bool
     {
         //
     }

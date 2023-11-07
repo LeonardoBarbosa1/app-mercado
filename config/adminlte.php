@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'App-Mercado',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -317,7 +317,6 @@ return [
             'icon'        => 'far fa-fw fa-file',
         ],
         ['header' => 'account_settings'],
-
         [
             'text' => 'profile',
             'icon' => 'fas fa-fw fa-user',
@@ -334,6 +333,7 @@ return [
                 ],
             ],
         ],
+
     ],
 
     /*

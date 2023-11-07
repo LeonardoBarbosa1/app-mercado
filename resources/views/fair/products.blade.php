@@ -3,6 +3,7 @@
 use App\Models\Fair;
 
 $fairStatus = Fair::$statusOptions;
+
 ?>
 
 @extends('adminlte::page')
@@ -24,16 +25,17 @@ $fairStatus = Fair::$statusOptions;
 
         <div class="row justify-content-center">
             <div class="col-md-8">
+
                 <div class="card" style="margin-top: 100px;">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                Feiras
+                                Produtos da feira: {{ $fair->name }}
                             </div>
 
                             <div class="col-6">
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ route('fair.create')}}" class="btn btn-success mb-2 mb-sm-0"
+                                    <a href="{{ route('product.create')}}" class="btn btn-success mb-2 mb-sm-0"
                                        data-toggle="modal" data-target="#myModal">
                                         Cadastrar
                                     </a>
@@ -42,7 +44,7 @@ $fairStatus = Fair::$statusOptions;
                                          aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                                @include('fair/create')
+                                                @include('products/create')
                                             </div>
                                         </div>
                                     </div>
@@ -59,64 +61,61 @@ $fairStatus = Fair::$statusOptions;
                                 <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
-                                    <th scope="col">Data</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Marca</th>
+                                    <th scope="col">Quanti.</th>
+                                    <th scope="col">Preço</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                @foreach ($fairs as $key => $fair)
+                                @foreach ($products as $key => $product)
                                     <tr>
-                                        <td>{{ $fair['name'] }}</td>
-                                        <td>{{ date('d/m/Y', strtotime($fair['date_fair'])) }}</td>
-                                        <td>
-                                            @if($fair->status)
-                                                @if($fair->status == Fair::STATUS_PENDING)
-                                                    <span
-                                                        class="text-warning fw-bold">{{  $fairStatus[$fair->status] }}</span>
-                                                @elseif ($fair->status == Fair::STATUS_COMPLETED)
-                                                    <span
-                                                        class="text-success fw-bold">{{  $fairStatus[$fair->status] }}</span>
-                                                @elseif ($fair->status == Fair::STATUS_CANCELED)
-                                                    <span
-                                                        class="text-danger fw-bold">{{  $fairStatus[$fair->status] }}</span>
-                                                @endif
-                                            @endif
-                                        </td>
+                                        <td>{{ $product['name'] }}</td>
+                                        <td>{{ $product['brand'] }}</td>
+                                        <td>{{ $product['quantity'] }}</td>
+                                        <td>{{ $product['price'] }}</td>
                                     </tr>
                                     <tr>
                                         <td style="border-top: none;">
-                                            <a class="btn bg-success mb-2 mb-sm-0" href="{{ route('products', $fair->id)}}">
-                                                <i class="fa  fa-arrow-right "></i>
-                                            </a>
+                                            @if($product->status == false)
+                                                <span
+                                                    class="text-warning fw-bold">Pend.</span>
+                                            @else
+                                                <span
+                                                    class="text-success fw-bold">Concl.</span>
+                                            @endif
                                         </td>
+
+
                                         <td style="border-top: none;">
                                             <a href="" class="btn btn-primary mb-2 mb-sm-0"
-                                               data-toggle="modal" data-target="#myModal_{{$fair->id}}">
+                                               data-toggle="modal" data-target="#myModal_{{$product->id}}">
                                                 <i class="fa fa-edit "></i>
                                             </a>
 
                                             <div class="modal fade"
-                                                 id="myModal_{{$fair->id}}"
+                                                 id="myModal_{{$product->id}}"
                                                  tabindex="-1"
                                                  role="dialog"
                                                  aria-labelledby="myModalLabel"
                                                  aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
-                                                        @include('fair/update')
+                                                        @include('products/update')
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
+                                        <td style="border-top: none;"></td>
+
                                         <td style="border-top: none;">
                                             <a href="" class="btn btn-danger mb-2 mb-sm-0"
-                                               data-toggle="modal" data-target="#myModal_delete_{{$fair->id}}">
+                                               data-toggle="modal" data-target="#myModal_delete_{{$product->id}}">
                                                 <i class="fa fa-trash "></i>
                                             </a>
 
                                             <div class="modal fade"
-                                                 id="myModal_delete_{{$fair->id}}"
+                                                 id="myModal_delete_{{$product->id}}"
                                                  tabindex="-1"
                                                  role="dialog"
                                                  aria-labelledby="myModalLabel"
@@ -126,39 +125,20 @@ $fairStatus = Fair::$statusOptions;
 
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
-                                                        @include('fair/delete')
+                                                        @include('products/delete')
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
+
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                            <div>
+                                <span class="h4">Total:</span><span class="h2"> R${{ $total }}</span>
+                            </div>
                         </div>
-
-                        <nav>
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $fairs->previousPageUrl()}}" aria-label="Previous">
-                                        <span aria-hidden="true">Voltar</span>
-                                    </a>
-                                </li>
-
-                                @for ($i = 1; $i <= $fairs->lastPage(); $i++)
-                                    <li class="page-item {{ $fairs->currentPage() == $i ? 'active' : ''}} ">
-                                        <a class="page-link" href="{{ $fairs->url($i) }}">{{ $i }}</a>
-                                    </li>
-                                @endfor
-
-
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $fairs->nextPageUrl()}}" aria-label="Next">
-                                        <span aria-hidden="true">Avançar</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>
