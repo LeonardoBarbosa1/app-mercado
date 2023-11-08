@@ -37,7 +37,7 @@ $fairStatus = Fair::$statusOptions;
                                 <div class="d-flex justify-content-end">
                                     <a href="{{ route('product.create')}}" class="btn btn-success mb-2 mb-sm-0"
                                        data-toggle="modal" data-target="#myModal">
-                                        Cadastrar
+                                        +
                                     </a>
 
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -136,6 +136,7 @@ $fairStatus = Fair::$statusOptions;
                                 </tbody>
                             </table>
                             <div>
+                                <i class="fa fa-calculator"></i>
                                 <span class="h4">Total:</span><span class="h2"> R${{ $total }}</span>
                             </div>
                         </div>

@@ -312,9 +312,14 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Feira',
+            'text'        => 'Compras',
             'url'         => 'fair',
             'icon'        => 'far fa-fw fa-file',
+        ],
+        [
+            'text'        => 'Históricos de Compras',
+            'url'         => 'fair/historic',
+            'icon'        => 'far fa fa-history',
         ],
         ['header' => 'account_settings'],
         [

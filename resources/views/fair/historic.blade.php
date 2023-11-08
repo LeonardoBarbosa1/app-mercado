@@ -28,28 +28,8 @@ $fairStatus = Fair::$statusOptions;
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                Compras
+                                Histórico de Compras
                             </div>
-
-                            <div class="col-6">
-                                <div class="d-flex justify-content-end">
-                                    <a href="{{ route('fair.create')}}" class="btn btn-success mb-2 mb-sm-0"
-                                       data-toggle="modal" data-target="#myModal">
-                                        +
-                                    </a>
-
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                @include('fair/create')
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
@@ -86,50 +66,8 @@ $fairStatus = Fair::$statusOptions;
                                     </tr>
                                     <tr>
                                         <td style="border-top: none;">
-                                            <a class="btn bg-success mb-2 mb-sm-0" href="{{ route('products', $fair->id)}}">
-                                                <i class="fa  fa-arrow-right "></i>
-                                            </a>
-                                        </td>
-                                        <td style="border-top: none;">
-                                            <a href="" class="btn btn-primary mb-2 mb-sm-0"
-                                               data-toggle="modal" data-target="#myModal_{{$fair->id}}">
-                                                <i class="fa fa-edit "></i>
-                                            </a>
-
-                                            <div class="modal fade"
-                                                 id="myModal_{{$fair->id}}"
-                                                 tabindex="-1"
-                                                 role="dialog"
-                                                 aria-labelledby="myModalLabel"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        @include('fair/update')
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td style="border-top: none;">
-                                            <a href="" class="btn btn-danger mb-2 mb-sm-0"
-                                               data-toggle="modal" data-target="#myModal_delete_{{$fair->id}}">
-                                                <i class="fa fa-trash "></i>
-                                            </a>
-
-                                            <div class="modal fade"
-                                                 id="myModal_delete_{{$fair->id}}"
-                                                 tabindex="-1"
-                                                 role="dialog"
-                                                 aria-labelledby="myModalLabel"
-                                                 aria-hidden="true"
-                                                 style="margin-top: 100px"
-                                            >
-
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        @include('fair/delete')
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <i class="fa fa-calculator"></i>
+                                            <span> Total: R${{ $fairTotals[$fair->id] }}</span>
                                         </td>
                                     </tr>
                                 @endforeach

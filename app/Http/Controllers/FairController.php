@@ -124,6 +124,38 @@ class FairController extends Controller
         ]);
     }
 
+    public function historic()
+    {
+        $user = Auth::user();
+
+        $fairs = Fair::where('user_id', $user->id)
+            ->orderBy('status', 'asc')
+            ->orderBy('date_fair', 'desc')
+            ->paginate(12);
+
+        $fairTotals = [];
+
+        foreach ($fairs as $fair) {
+            $fairProducts = Product::where('fair_id', $fair->id)
+                ->orderBy('status', 'asc')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $total = $fairProducts->sum(function ($product) {
+                return $product->quantity * $product->price;
+            });
+
+            $fairTotals[$fair->id] = $total;
+
+        }
+
+        return view('fair.historic', [
+            'fairs' => $fairs,
+            'fairTotals' => $fairTotals,
+        ]);
+    }
+
+
     public function findModel($fair)
     {
         $user = Auth::user();
