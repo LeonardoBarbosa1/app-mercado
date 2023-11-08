@@ -106,7 +106,10 @@ class FairController extends Controller
 
         $fair = $model;
 
-        $products = Product::where('fair_id', $model->id)->orderBy('created_at', 'desc')->get();
+        $products = Product::where('fair_id', $model->id)
+            ->orderBy('status', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         session(['id' => $id]);
 
