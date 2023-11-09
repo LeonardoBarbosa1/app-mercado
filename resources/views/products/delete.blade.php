@@ -1,6 +1,6 @@
 <div class="modal-body">
     <div class="card-body">
-        <form id="form_{{ $product->id }}" method="post" action="{{ route('product.destroy', ['product' => $product->id]) }}">
+        <form id="form_{{ $product->id }}" method="post" action="{{ route('product.destroy', ['product' => $product]) }}">
             @method('DELETE')
             @csrf
             <div class="mb-3">

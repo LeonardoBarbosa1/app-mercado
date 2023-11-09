@@ -61,7 +61,6 @@ $fairStatus = Fair::$statusOptions;
                                 <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
-                                    <th scope="col">Marca</th>
                                     <th scope="col">Quanti.</th>
                                     <th scope="col">Preço</th>
                                 </tr>
@@ -71,7 +70,6 @@ $fairStatus = Fair::$statusOptions;
                                 @foreach ($products as $key => $product)
                                     <tr>
                                         <td>{{ $product['name'] }}</td>
-                                        <td>{{ $product['brand'] }}</td>
                                         <td>{{ $product['quantity'] }}</td>
                                         <td>{{ $product['price'] }}</td>
                                     </tr>
@@ -106,7 +104,6 @@ $fairStatus = Fair::$statusOptions;
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="border-top: none;"></td>
 
                                         <td style="border-top: none;">
                                             <a href="" class="btn btn-danger mb-2 mb-sm-0"

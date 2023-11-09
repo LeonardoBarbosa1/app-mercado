@@ -96,9 +96,7 @@ class ProductsController extends Controller
 
     public function findModel($product)
     {
-        $user = Auth::user();
-
-        $model = Product::where('fair_id', $product->fair_id)->first();
+        $model = Product::where('id', $product->id)->where('fair_id', $product->fair_id)->first();
 
         if($model){
             return $model;
