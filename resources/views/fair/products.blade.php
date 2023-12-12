@@ -26,7 +26,17 @@ $fairStatus = Fair::$statusOptions;
         <div class="row justify-content-center">
             <div class="col-md-8">
 
-                <div class="card" style="margin-top: 100px;">
+                <div class="bg-light p-3" style="margin-top: 20px;">
+                    <form action="{{ route('product-search', ['id' => $fair->id]) }}" method="post">
+                        @csrf
+                        <div class="input-group">
+                            <input class="form-control mr-sm-2" type="search" name="product_search" placeholder="Digite sua pesquisa" aria-label="Pesquisar">
+                            <button class="btn btn-primary" type="submit">Pesquisar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card" >
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">

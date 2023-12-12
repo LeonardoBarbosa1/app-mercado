@@ -36,7 +36,6 @@ class StoreProductsRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'brand' => 'required|string|max:100',
             'quantity' => 'required|integer',
             'price' => 'required|numeric',
             'status' => 'required|boolean',

@@ -28,7 +28,7 @@
         <div class="mb-3">
             <label class="form-label">Marca</label>
             <input type="text" class="form-control @error('brand') is-invalid @enderror" name="brand"
-                   placeholder="marca..." required value="{{ $product->brand }}">
+                   placeholder="marca..." value="{{ $product->brand }}">
             @error('brand')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

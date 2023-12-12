@@ -47,6 +47,11 @@ Route::get('fair/product-create', [App\Http\Controllers\FairController::class, '
 
 Route::resource('product',  App\Http\Controllers\ProductsController::class);
 
+Route::get('fair/{id}/product-search', [App\Http\Controllers\FairController::class, 'productSearch'])
+    ->name('product-search');
+Route::post('fair/{id}/product-search', [App\Http\Controllers\FairController::class, 'productSearch'])
+    ->name('product-search');
+
 Route::fallback(function(){
     return redirect('fair');
 });

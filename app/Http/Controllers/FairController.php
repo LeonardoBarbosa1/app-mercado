@@ -6,6 +6,8 @@ use App\Http\Requests\StoreFairRequest;
 use App\Http\Requests\UpdateFairRequest;
 use App\Models\Fair;
 use App\Models\Product;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -114,6 +116,45 @@ class FairController extends Controller
         session(['id' => $id]);
 
         $total = $products->sum(function ($product) {
+            return $product->quantity * $product->price;
+        });
+
+        return view('fair.products', [
+            'products' => $products,
+            'fair' => $fair,
+            'total' => $total,
+        ]);
+    }
+
+    public function productSearch(Request $request, $id){
+
+        $user = Auth::user();
+
+        $searchTerm = $request->input('product_search');
+
+        $model = Fair::where('user_id', $user->id)
+            ->where('id', $id)
+            ->first();
+
+        $fair = $model;
+
+        $products = Product::where('fair_id', $id)
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('price', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('status', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('brand', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('quantity', 'like', '%' . $searchTerm . '%');
+            })
+            ->orderByDesc('created_at')
+            ->get();
+
+        $product = Product::where('fair_id', $model->id)
+            ->orderBy('status', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $total = $product->sum(function ($product) {
             return $product->quantity * $product->price;
         });
 
