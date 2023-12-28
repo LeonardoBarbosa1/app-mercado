@@ -66,7 +66,7 @@ $fairStatus = Fair::$statusOptions;
                     </div>
 
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" style="max-height: 350px;">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -142,10 +142,11 @@ $fairStatus = Fair::$statusOptions;
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div>
-                                <i class="fa fa-calculator"></i>
-                                <span class="h4">Total:</span><span class="h2"> R${{ $total }}</span>
-                            </div>
+
+                        </div>
+                        <div>
+                            <i class="fa fa-calculator"></i>
+                            <span class="h4">Total:</span><span class="h2"> R${{ $total }}</span>
                         </div>
                     </div>
                 </div>
